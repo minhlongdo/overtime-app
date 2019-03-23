@@ -1,6 +1,6 @@
 require 'rspec'
 
-describe 'navigate' do
+describe 'navigate', type: :feature do
   describe 'homepage' do
     it 'can be reached successfully' do
       visit root_path
