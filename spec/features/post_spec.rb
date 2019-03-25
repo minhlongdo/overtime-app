@@ -2,12 +2,7 @@ require 'rspec'
 
 describe 'navigate', type: :feature do
   before do
-    @user = User.create(email: "test@test.com",
-                       password: "1234567",
-                       password_confirmation: "1234567",
-                       first_name: "Jon",
-                       last_name: "Snow")
-    @user.save
+    @user = FactoryGirl.create(:user)
     login_as(@user, :scope => :user)
     visit posts_path
   end
@@ -22,14 +17,10 @@ describe 'navigate', type: :feature do
     end
 
     it 'has a list of posts' do
-      post1 = Post.create(date: Date.today, rationale: "Post1")
-      post1.user = @user
-      post1.save
-      post2 = Post.create(date: Date.today, rationale: "Post2")
-      post2.user = @user
-      post2.save
+      FactoryGirl.build_stubbed(:post)
+      FactoryGirl.build_stubbed(:second_post)
       visit posts_path
-      expect(page).to have_content(/Post1|Post2/)
+      expect(page).to have_content(/Rational|content/)
     end
   end
 
@@ -55,6 +46,7 @@ describe 'navigate', type: :feature do
     it 'will have a user associated it' do
       fill_in 'post[date]', with: Date.today
       fill_in 'post[rationale]', with: "User Association"
+
       click_on "Save"
 
       expect(User.last.posts.last.rationale).to eq("User Association")

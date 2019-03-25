@@ -19,6 +19,7 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'rspec', '~> 3.8'
   gem 'rspec-rails', '~> 3.8'
+  gem 'factory_girl_rails', '~> 4.9'
 end
 
 group :development do
